@@ -10,35 +10,30 @@ namespace Backend
 {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom d'interface "IService1" à la fois dans le code et le fichier de configuration.
     [ServiceContract]
-    public interface IAuthService
+    public interface IDecipherService
     {
 
 
         // TODO: ajoutez vos opérations de service ici
+
+        //
         [OperationContract]
-        string login(string login, string password, string tokenApp);
+        Credentials Login(Credentials credentials);
     }
 
 
     // Utilisez un contrat de données comme indiqué dans l'exemple ci-après pour ajouter les types composites aux opérations de service.
     [DataContract]
-    public class CompositeType
+    public class Credentials
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        [DataMember]
+        public string username { get; set; }
 
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
+        public string password { get; set; }
 
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public string token { get; set; }
     }
+    
 }
