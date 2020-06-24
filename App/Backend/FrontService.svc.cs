@@ -13,15 +13,17 @@ namespace Backend
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez FrontService.svc ou FrontService.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class FrontService : IDecipherService
     {
+
+
         public Credentials Login(Credentials credentials)
         {
-            //TODO : ADD CHECK IN DATABASE FOR EXISTING USER
+            //TODO : ADD A CHECK IN DATABASE FOR EXISTING USER
 
 
             if (credentials.username == "test" && credentials.password == "1234")
             {
-                string token = "tokenUser";
 
+                string token = "tokenUser";
                 credentials.token = token;
                 return credentials;
             }
@@ -30,7 +32,21 @@ namespace Backend
                 credentials.token = "";
                 return credentials;
             }
-            
+
+        }
+
+        private bool TokenChecker(string username, string tokenUser)
+        {
+            //TODO : ADD A CHECK IN DATABASE FOR EXISTING USER WITH TOKEN
+
+            if (username == "test" && tokenUser == "tokenUser")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
