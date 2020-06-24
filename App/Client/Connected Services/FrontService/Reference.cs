@@ -15,6 +15,133 @@ namespace Client.FrontService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Message", Namespace="http://schemas.datacontract.org/2004/07/Backend")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(object[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client.FrontService.Credentials))]
+    public partial class Message : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private object[] dataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string operationNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string passwordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string tokenAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string tokenUserField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string usernameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public object[] data {
+            get {
+                return this.dataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.dataField, value) != true)) {
+                    this.dataField = value;
+                    this.RaisePropertyChanged("data");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string operationName {
+            get {
+                return this.operationNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.operationNameField, value) != true)) {
+                    this.operationNameField = value;
+                    this.RaisePropertyChanged("operationName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
+                    this.passwordField = value;
+                    this.RaisePropertyChanged("password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string tokenApp {
+            get {
+                return this.tokenAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tokenAppField, value) != true)) {
+                    this.tokenAppField = value;
+                    this.RaisePropertyChanged("tokenApp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string tokenUser {
+            get {
+                return this.tokenUserField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tokenUserField, value) != true)) {
+                    this.tokenUserField = value;
+                    this.RaisePropertyChanged("tokenUser");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string username {
+            get {
+                return this.usernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.usernameField, value) != true)) {
+                    this.usernameField = value;
+                    this.RaisePropertyChanged("username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Credentials", Namespace="http://schemas.datacontract.org/2004/07/Backend")]
     [System.SerializableAttribute()]
     public partial class Credentials : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -24,9 +151,6 @@ namespace Client.FrontService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string passwordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string tokenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string usernameField;
@@ -55,19 +179,6 @@ namespace Client.FrontService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string token {
-            get {
-                return this.tokenField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.tokenField, value) != true)) {
-                    this.tokenField = value;
-                    this.RaisePropertyChanged("token");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string username {
             get {
                 return this.usernameField;
@@ -91,48 +202,62 @@ namespace Client.FrontService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="FrontService.IDecipherService")]
-    public interface IDecipherService {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="FrontService.IFrontService")]
+    public interface IFrontService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDecipherService/Login", ReplyAction="http://tempuri.org/IDecipherService/LoginResponse")]
-        Client.FrontService.Credentials Login(Client.FrontService.Credentials credentials);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFrontService/ProcessMessage", ReplyAction="http://tempuri.org/IFrontService/ProcessMessageResponse")]
+        Client.FrontService.Message ProcessMessage(Client.FrontService.Message msg);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDecipherService/Login", ReplyAction="http://tempuri.org/IDecipherService/LoginResponse")]
-        System.Threading.Tasks.Task<Client.FrontService.Credentials> LoginAsync(Client.FrontService.Credentials credentials);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFrontService/ProcessMessage", ReplyAction="http://tempuri.org/IFrontService/ProcessMessageResponse")]
+        System.Threading.Tasks.Task<Client.FrontService.Message> ProcessMessageAsync(Client.FrontService.Message msg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFrontService/Login", ReplyAction="http://tempuri.org/IFrontService/LoginResponse")]
+        string Login(Client.FrontService.Credentials credentials);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFrontService/Login", ReplyAction="http://tempuri.org/IFrontService/LoginResponse")]
+        System.Threading.Tasks.Task<string> LoginAsync(Client.FrontService.Credentials credentials);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IDecipherServiceChannel : Client.FrontService.IDecipherService, System.ServiceModel.IClientChannel {
+    public interface IFrontServiceChannel : Client.FrontService.IFrontService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class DecipherServiceClient : System.ServiceModel.ClientBase<Client.FrontService.IDecipherService>, Client.FrontService.IDecipherService {
+    public partial class FrontServiceClient : System.ServiceModel.ClientBase<Client.FrontService.IFrontService>, Client.FrontService.IFrontService {
         
-        public DecipherServiceClient() {
+        public FrontServiceClient() {
         }
         
-        public DecipherServiceClient(string endpointConfigurationName) : 
+        public FrontServiceClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public DecipherServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        public FrontServiceClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public DecipherServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public FrontServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public DecipherServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public FrontServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public Client.FrontService.Credentials Login(Client.FrontService.Credentials credentials) {
+        public Client.FrontService.Message ProcessMessage(Client.FrontService.Message msg) {
+            return base.Channel.ProcessMessage(msg);
+        }
+        
+        public System.Threading.Tasks.Task<Client.FrontService.Message> ProcessMessageAsync(Client.FrontService.Message msg) {
+            return base.Channel.ProcessMessageAsync(msg);
+        }
+        
+        public string Login(Client.FrontService.Credentials credentials) {
             return base.Channel.Login(credentials);
         }
         
-        public System.Threading.Tasks.Task<Client.FrontService.Credentials> LoginAsync(Client.FrontService.Credentials credentials) {
+        public System.Threading.Tasks.Task<string> LoginAsync(Client.FrontService.Credentials credentials) {
             return base.Channel.LoginAsync(credentials);
         }
     }

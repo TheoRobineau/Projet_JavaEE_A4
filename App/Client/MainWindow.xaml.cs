@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -44,18 +45,29 @@ namespace Client
 
         private string loginUser(string username, string password)
         {
-            DecipherServiceClient service = new DecipherServiceClient();
 
-            Credentials credentials = service.Login(new Credentials { username = username, password = password });
+            FrontServiceClient service = new FrontServiceClient();
 
-            if(credentials.token != "invalid")
-            {
-                return credentials.token;
-            }
-            else
-            {
-                return "invalid";
-            }
+            Message message = service.ProcessMessage(new Message { operationName= log})
+
+
+            //message = SendMessage();
+            //if(credentials.token != "invalid")
+            //{
+            //    return credentials.token;
+            //}
+            //else
+            //{
+            //    return "invalid";
+            //}
         }
+
+
+        private Message MessageBuilder(List<object> paramList)
+        {
+            Message message = new Message();
+            return message; 
+        }
+
     }
 }

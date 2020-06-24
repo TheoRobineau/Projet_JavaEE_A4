@@ -69,7 +69,7 @@
     <Compile Include="FrontService.svc.cs">
       <DependentUpon>FrontService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IDecipherService.cs" />
+    <Compile Include="IFrontService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

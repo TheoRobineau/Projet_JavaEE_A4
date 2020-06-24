@@ -10,15 +10,19 @@ namespace Backend
 {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom d'interface "IService1" à la fois dans le code et le fichier de configuration.
     [ServiceContract]
-    public interface IDecipherService
+    public interface IFrontService
     {
 
 
         // TODO: ajoutez vos opérations de service ici
 
         //
+
         [OperationContract]
-        Credentials Login(Credentials credentials);
+        Message ProcessMessage(Message msg);
+
+        [OperationContract]
+        string Login(Credentials credentials);
     }
 
 
@@ -31,9 +35,30 @@ namespace Backend
 
         [DataMember]
         public string password { get; set; }
+    }
+
+    [DataContract]
+    public class Message
+    {
+        [DataMember]
+        public string operationName { get; set; }
 
         [DataMember]
-        public string token { get; set; }
+        public string tokenApp { get; set; }
+
+        [DataMember]
+        public string username { get; set; }
+        [DataMember]
+        public string password { get; set; }
+        [DataMember]
+        public string tokenUser { get; set; }
+
+        [DataMember]
+        public object[] data { get; set; }
+        public string appVersion;
+        public string operationVersion;
+        public string info;
+        public bool statutOp;
     }
     
 }
