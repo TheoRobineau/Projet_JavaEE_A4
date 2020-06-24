@@ -23,13 +23,13 @@ namespace Backend
             if (credentials.username == "test" && credentials.password == "1234")
             {
 
-                string token = "tokenUser";
-                credentials.token = token;
+                //string token = "tokenUser";
+                credentials.token = "tokenUser";
                 return credentials;
             }
             else
             {
-                credentials.token = "";
+                credentials.token = "invalid";
                 return credentials;
             }
 

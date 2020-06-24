@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Client.FrontService;
 
 namespace Client
 {
@@ -25,14 +26,36 @@ namespace Client
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
+            string token = loginUser(UsernameBox.Text, PasswordBox.Password);
+            
+            if (token != "invalid")
+            {
+                logInResult.Text = "Success ! " + token.ToString();
+            }
+            else
+            {
+                logInResult.Text = "Failure ! Identifiant ou mot de passe incorrect " + token.ToString();
+            }
+
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private string loginUser(string username, string password)
         {
+            DecipherServiceClient service = new DecipherServiceClient();
 
+            Credentials credentials = service.Login(new Credentials { username = username, password = password });
+
+            if(credentials.token != "invalid")
+            {
+                return credentials.token;
+            }
+            else
+            {
+                return "invalid";
+            }
         }
     }
 }
