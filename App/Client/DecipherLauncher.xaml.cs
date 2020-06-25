@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Client.FrontService;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Client
 {
@@ -24,16 +26,20 @@ namespace Client
 
         private string token;
         private string username;
+        private string tokenApp;
 
         int i = 0;
+
+        private bool processIsRunning = false;
 
         private List<string> fileNames = new List<string>();
         private List<string> fileData = new List<string>();
 
-        public DecipherLauncher(string username, string tokenUser)
+        public DecipherLauncher(string username, string tokenUser, string tokenApp)
         {
             token = tokenUser;
             this.username = username;
+            this.tokenApp = tokenApp;
 
             InitializeComponent();
             WelcomeText.Text = "Bienvenue sur votre outil de décryptage, " + this.username + ". \nVeuillez sélectionnez les fichiers à décrypter.";
@@ -54,21 +60,48 @@ namespace Client
                 foreach (string file in fileDialog.FileNames)
                 {
                     StreamReader reader = new StreamReader(file);
-                    string name = fileDialog.SafeFileName;
-
+                    string name = Path.GetFileName(file);
+                    
                     fileNames.Add(name);
                     fileData.Add(reader.ReadToEnd());
                     reader.Close();
-
                     FileListBox.Items.Add(name.ToString());
+
+                    //debug
                     FileListBox.Items.Add(fileData.ElementAt(i).ToString());
                     i++;
+                    //debug
                 }
+
+                StartButton.IsEnabled = true;
             }
 
 
         }
 
+        private void Start_Decipher_Button_Click(object sender, RoutedEventArgs e)
+        {
+            object[] test = new object[2];
 
+            test[0] = fileNames;
+            test[1] = fileData;
+
+            foreach (var item in test)
+            {
+                Console.Out.WriteLine(item.ToString());
+                Console.ReadLine();
+            }
+
+            if (!processIsRunning)
+            {
+                FrontServiceClient service = new FrontServiceClient();
+                Message message = service.ProcessMessage(new Message { operationName = "Decipher", tokenUser = this.token, tokenApp = this.tokenApp,  });
+                processIsRunning = true;
+            }
+            else
+            {
+                MessageBox.Show("Le processus est déjà en cours !", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
     }
 }

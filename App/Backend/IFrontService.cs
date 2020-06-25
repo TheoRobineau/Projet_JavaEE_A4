@@ -55,10 +55,14 @@ namespace Backend
 
         [DataMember]
         public object[] data { get; set; }
+
+        [DataMember]
+        public bool statutOp { get; set; }
+
         public string appVersion;
         public string operationVersion;
         public string info;
-        public bool statutOp;
+
     }
     
 }

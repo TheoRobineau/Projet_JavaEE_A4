@@ -22,6 +22,8 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        string tokenApp = "TokenApp";
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +37,7 @@ namespace Client
             if (token != "invalid")
             {
                 logInResult.Text = "Success ! " + token.ToString();
-                DecipherLauncher launcher = new DecipherLauncher(UsernameBox.Text, token);
+                DecipherLauncher launcher = new DecipherLauncher(UsernameBox.Text, token, tokenApp);
                 launcher.Show();
                 Close();
             }
@@ -52,7 +54,7 @@ namespace Client
 
             FrontServiceClient service = new FrontServiceClient();
 
-            Message message = service.ProcessMessage(new Message { operationName = "Login", tokenApp = "TokenApp", username= username, password = password});
+            Message message = service.ProcessMessage(new Message { operationName = "Login", tokenApp = this.tokenApp, username= username, password = password});
 
             if (message.tokenUser != "invalid")
             {
