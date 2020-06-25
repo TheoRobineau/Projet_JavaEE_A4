@@ -57,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DecipherLauncher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +73,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="DecipherLauncher.xaml.cs">
+      <DependentUpon>DecipherLauncher.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -93,7 +100,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\FrontService\Client.FrontService.Credentials.datasource">
+    <None Include="Connected Services\FrontService\Client.FrontService.Message.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\FrontService\FrontService.wsdl" />
@@ -104,6 +111,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\FrontService\FrontService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FrontService\FrontService3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">

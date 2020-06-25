@@ -25,15 +25,19 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
+            UsernameBox.Focus();
         }
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            string token = loginUser(UsernameBox.Text, PasswordBox.Password);
+            string token = LoginUser(UsernameBox.Text, PasswordBox.Password);
             
             if (token != "invalid")
             {
                 logInResult.Text = "Success ! " + token.ToString();
+                DecipherLauncher launcher = new DecipherLauncher(UsernameBox.Text, token);
+                launcher.Show();
+                Close();
             }
             else
             {
@@ -43,23 +47,21 @@ namespace Client
 
         }
 
-        private string loginUser(string username, string password)
+        private string LoginUser(string username, string password)
         {
 
             FrontServiceClient service = new FrontServiceClient();
 
-            Message message = service.ProcessMessage(new Message { operationName= log})
+            Message message = service.ProcessMessage(new Message { operationName = "Login", tokenApp = "TokenApp", username= username, password = password});
 
-
-            //message = SendMessage();
-            //if(credentials.token != "invalid")
-            //{
-            //    return credentials.token;
-            //}
-            //else
-            //{
-            //    return "invalid";
-            //}
+            if (message.tokenUser != "invalid")
+            {
+                return message.tokenUser;
+            }
+            else
+            {
+                return "invalid";
+            }
         }
 
 

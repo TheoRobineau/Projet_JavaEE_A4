@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="DecipherLauncher" Height="450" Width="800">
+        Title="DecipherLauncher" Height="450" Width="800" FontSize="16">
     <Grid>
-        <Button Content="Parcourir Fichiers" HorizontalAlignment="Left" Margin="130,115,0,0" VerticalAlignment="Top" Width="112"/>
+        <TextBlock Name="WelcomeText" HorizontalAlignment="Left" Height="60" Margin="30,20,0,0" Text="" VerticalAlignment="Top" Width="386"/>
+        <Button Content="Parcourir Fichiers" HorizontalAlignment="Left" Margin="50,0,0,269" Width="140" Click="Browse_Button_Click" Height="25" VerticalAlignment="Bottom"/>
+        <ListBox Name="FileListBox" Width="300" Height="200" Margin="0,125,262,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
 
     </Grid>
 </Window>
