@@ -37,7 +37,8 @@ namespace Backend
         public string password { get; set; }
     }
 
-    [DataContract]
+    [DataContract] 
+    [KnownType(typeof(string[]))]
     public class Message
     {
         [DataMember]
@@ -54,7 +55,7 @@ namespace Backend
         public string tokenUser { get; set; }
 
         [DataMember]
-        public object[] data { get; set; }
+        public object[] data;
 
         [DataMember]
         public bool statutOp { get; set; }

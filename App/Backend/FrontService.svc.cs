@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
@@ -21,7 +23,19 @@ namespace Backend
                 switch (msg.operationName)
                 {
                     case "Login":
-                        msg.tokenUser = Login(new Credentials {username = msg.username, password = msg.password });
+                        msg.tokenUser = Login(new Credentials { username = msg.username, password = msg.password });
+                        break;
+                    case "Decipher":
+                        List<string> fileNames = new List<string>();
+                        List<string> fileData = new List<string>();
+
+                        //cast le premier objet en byte array #ScotchOverScotch
+                        byte[] data = (byte[])msg.data[0];
+
+                        fileNames = ByteDeserializer(data);
+                        //fileNames.Add(msg.data[0].ToString());
+                        //fileData.Add(msg.data[1].ToString());
+
                         break;
                 }
 
@@ -35,7 +49,20 @@ namespace Backend
 
         }
 
+        private List<string> ByteDeserializer(byte[] data)
+        {
+            List<string> list = new List<string>();
 
+            var mStream = new MemoryStream();
+            var binFormatter = new BinaryFormatter();
+
+            mStream.Write(data, 0, data.Length);
+            mStream.Position = 0;
+
+            list = binFormatter.Deserialize(mStream) as List<string>;
+
+            return list;
+        }
 
         public string Login(Credentials credentials)
         {
@@ -55,6 +82,12 @@ namespace Backend
             }
 
         }
+
+        //private bool StartDecipherEngine(Message)
+        //{
+
+        //    return false;
+        //} 
 
         private bool UserTokenChecker(string username, string tokenUser)
         {

@@ -34,6 +34,9 @@ namespace Client.FrontService {
         private string passwordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool statutOpField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string tokenAppField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -87,6 +90,19 @@ namespace Client.FrontService {
                 if ((object.ReferenceEquals(this.passwordField, value) != true)) {
                     this.passwordField = value;
                     this.RaisePropertyChanged("password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool statutOp {
+            get {
+                return this.statutOpField;
+            }
+            set {
+                if ((this.statutOpField.Equals(value) != true)) {
+                    this.statutOpField = value;
+                    this.RaisePropertyChanged("statutOp");
                 }
             }
         }

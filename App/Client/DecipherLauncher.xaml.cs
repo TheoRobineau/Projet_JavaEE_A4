@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -81,27 +82,34 @@ namespace Client
 
         private void Start_Decipher_Button_Click(object sender, RoutedEventArgs e)
         {
-            object[] test = new object[2];
+            byte[][] arrayData = new byte[2][];
 
-            test[0] = fileNames;
-            test[1] = fileData;
+            //convertis les objets list en tableau de tableaux byte[] #Scotch
+            arrayData[0] = ByteSerializer(fileNames);
+            arrayData[1] = ByteSerializer(fileData);
 
-            foreach (var item in test)
-            {
-                Console.Out.WriteLine(item.ToString());
-                Console.ReadLine();
-            }
 
             if (!processIsRunning)
             {
                 FrontServiceClient service = new FrontServiceClient();
-                Message message = service.ProcessMessage(new Message { operationName = "Decipher", tokenUser = this.token, tokenApp = this.tokenApp,  });
+                Message message = service.ProcessMessage(new Message { operationName = "Decipher", tokenUser = this.token, tokenApp = this.tokenApp, data = arrayData });//, data = arrayData
                 processIsRunning = true;
             }
             else
             {
                 MessageBox.Show("Le processus est déjà en cours !", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private byte[] ByteSerializer(List<string> list)
+        {
+            var binFormatter = new BinaryFormatter();
+            var mStream = new MemoryStream();
+            binFormatter.Serialize(mStream, fileNames);
+            byte[] data = new byte[0];
+            data = mStream.ToArray();
+
+            return data;
         }
     }
 }
