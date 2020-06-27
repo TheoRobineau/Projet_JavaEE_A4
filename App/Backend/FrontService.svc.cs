@@ -30,11 +30,11 @@ namespace Backend
                         List<string> fileData = new List<string>();
 
                         //cast le premier objet en byte array #ScotchOverScotch
-                        byte[] data = (byte[])msg.data[0];
+                        byte[] dataNames = (byte[])msg.data[0];
+                        byte[] dataContent = (byte[])msg.data[1];
 
-                        fileNames = ByteDeserializer(data);
-                        //fileNames.Add(msg.data[0].ToString());
-                        //fileData.Add(msg.data[1].ToString());
+                        fileNames = ByteDeserializer(dataNames);
+                        fileData = ByteDeserializer(dataContent);
 
                         break;
                 }
