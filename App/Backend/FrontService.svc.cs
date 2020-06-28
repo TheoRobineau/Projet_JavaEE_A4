@@ -29,6 +29,7 @@ namespace Backend
                         test.getdata("Devron","michael");
                         break;
                     case "Decipher":
+                        BruteForceEngine bruteForceEngine = new BruteForceEngine();
                         List<string> fileNames = new List<string>();
                         List<string> fileData = new List<string>();
 
@@ -38,6 +39,8 @@ namespace Backend
 
                         fileNames = ByteDeserializer(dataNames);
                         fileData = ByteDeserializer(dataContent);
+
+                        bruteForceEngine.DecipherEngine(fileNames, fileData);
 
                         break;
                 }

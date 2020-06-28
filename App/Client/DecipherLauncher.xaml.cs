@@ -105,7 +105,7 @@ namespace Client
         {
             var binFormatter = new BinaryFormatter();
             var mStream = new MemoryStream();
-            binFormatter.Serialize(mStream, fileNames);
+            binFormatter.Serialize(mStream, list);
             byte[] data = new byte[0];
             data = mStream.ToArray();
 
