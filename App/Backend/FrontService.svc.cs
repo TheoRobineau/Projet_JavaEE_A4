@@ -16,6 +16,8 @@ namespace Backend
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez FrontService.svc ou FrontService.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class FrontService : IFrontService
     {
+        bdd test = new bdd();    
+
         public Message ProcessMessage(Message msg)
         {
             if (AppTokenChecker(msg.tokenApp))
@@ -24,6 +26,7 @@ namespace Backend
                 {
                     case "Login":
                         msg.tokenUser = Login(new Credentials { username = msg.username, password = msg.password });
+                        test.getdata("Devron","michael");
                         break;
                     case "Decipher":
                         List<string> fileNames = new List<string>();
