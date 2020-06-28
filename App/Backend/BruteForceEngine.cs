@@ -51,6 +51,7 @@ namespace Backend
                             {
                                 //System.Diagnostics.Debug.WriteLine("Thread " + fileName + " finished at : " + DateTime.Now);
                                 //System.Diagnostics.Debug.WriteLine(Decrypt(text, "ZZZZ"));
+                                System.Diagnostics.Debug.WriteLine("ended at" + DateTime.Now);
 
                             }
                         }
@@ -62,10 +63,9 @@ namespace Backend
 
         public void DecipherEngine(List<string> fileNames, List<string> fileContents)
         {
-            Console.WriteLine("Started at : " + DateTime.Now);
+            System.Diagnostics.Debug.WriteLine("Started at : " + DateTime.Now);
 
-
-            for(int i = 0; i < fileNames.Count(); i++)
+            for (int i = 0; i < fileNames.Count(); i++)
             {
                 string name = fileNames.ElementAt(i);
                 string content = fileContents.ElementAt(i);

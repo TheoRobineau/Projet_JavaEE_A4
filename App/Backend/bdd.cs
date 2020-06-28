@@ -11,7 +11,7 @@ namespace Backend
     {
         
         public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-FF4UVH8;Initial Catalog=Users;Integrated Security=True");
-        public void getdata(string queryd)
+        public void getdata(string username, string password)
         {
             string query = "Select Count(*) From UserList where Username ='" + username + "' and UserPassword ='" + password + "'";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
