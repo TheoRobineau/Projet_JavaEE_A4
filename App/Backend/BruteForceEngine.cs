@@ -29,7 +29,7 @@ namespace Backend
 
             string fileName = (string)argArray.GetValue(0);
             string text = (string)argArray.GetValue(1);
-
+            System.Diagnostics.Debug.WriteLine(fileName + text);
 
             for (Char c1 = 'A'; c1 <= 'Z'; c1++)
             {
@@ -44,11 +44,14 @@ namespace Backend
 
                             //SEND RESULT TO JAVA EE HERE
 
+                            //DEBUG FAIS GRANDEMENT RALENTIR LES THREADS
                             //System.Diagnostics.Debug.WriteLine("Fichier : " + fileName + "décrypter avec la clé :" + key);
 
                             if ("" + c1 + c2 + c3 + c4 == "ZZZZ")
                             {
-                                System.Diagnostics.Debug.WriteLine("Thread " + fileName + " finished at : " + DateTime.Now);
+                                //System.Diagnostics.Debug.WriteLine("Thread " + fileName + " finished at : " + DateTime.Now);
+                                //System.Diagnostics.Debug.WriteLine(Decrypt(text, "ZZZZ"));
+
                             }
                         }
                     }
