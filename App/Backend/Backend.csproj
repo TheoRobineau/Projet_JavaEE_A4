@@ -66,6 +66,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BruteForceEngine.cs" />
     <Compile Include="FrontService.svc.cs">
       <DependentUpon>FrontService.svc</DependentUpon>
     </Compile>
