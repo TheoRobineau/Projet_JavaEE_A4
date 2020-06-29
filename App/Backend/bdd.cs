@@ -11,7 +11,8 @@ namespace Backend
     public class bdd
     {
         
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-FF4UVH8;Initial Catalog=Users;Integrated Security=True");
+        //public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-FF4UVH8;Initial Catalog=Users;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=PC-THEO;Initial Catalog=BackendDb;Integrated Security=True");
 
         public object MySqlHelper { get; private set; }
 
