@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Client" Height="350" Width="700">
     <Grid>
-        
+        <TextBlock HorizontalAlignment="Left" Margin="50,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Text="Veuillez vous identifier" FontSize="18" FontWeight="Bold"/>
+        <GroupBox Header="Connexion" FontSize="16" Margin="50,80,242,31">
+            <Canvas HorizontalAlignment="Left" Height="158" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Identifiant" Canvas.Top="10"/>
+                <TextBox Name="UsernameBox" Height="25" Canvas.Left="10" TextWrapping="Wrap" Width="160" Canvas.Top="36" Text="test"/>
+                <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Mot de passe" Canvas.Top="78"/>
+                <PasswordBox Name="PasswordBox" Canvas.Left="10" Canvas.Top="104" Width="160" Height="25" Password="1234"/>
+                <Button Content="Connexion" Canvas.Left="235" Canvas.Top="123" Width="90" Click="Login_Button_Click"/>
+            </Canvas>
+        </GroupBox>
+        <TextBlock Name="logInResult" HorizontalAlignment="Left" Margin="50,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="400" FontSize="16" Height="20"/>
+
     </Grid>
 </Window>

@@ -66,10 +66,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bdd.cs" />
+    <Compile Include="BruteForceEngine.cs" />
     <Compile Include="FrontService.svc.cs">
       <DependentUpon>FrontService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IDecipherService.cs" />
+    <Compile Include="IFrontService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
