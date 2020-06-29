@@ -10,7 +10,8 @@ namespace Backend
     public class bdd
     {
         
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-FF4UVH8;Initial Catalog=Users;Integrated Security=True");
+        //public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-FF4UVH8;Initial Catalog=Users;Integrated Security=True");
+        public SqlConnection con = new SqlConnection(@"Data Source=PC-THEO;Initial Catalog=BackendDb;Integrated Security=True");
 
 
         public bool getUserExist(string username, string password)
@@ -57,8 +58,6 @@ namespace Backend
             con.Close();
             return token;
         }
-
-
 
         public void getdata(string username, string password)
         {
