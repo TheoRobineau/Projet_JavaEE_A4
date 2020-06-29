@@ -9,9 +9,9 @@ namespace Backend
 {
     public class BruteForceEngine
     {
-        
-        static string Decrypt(string inputString, string key)
+        static string Decrypt(string inputString, string key, string filename)
         {
+            bdd test = new bdd();
             var result = new StringBuilder();
 
             for (int c = 0; c < inputString.Length; c++)
@@ -19,83 +19,79 @@ namespace Backend
 
             if (key == "ZZZZ")
             {
-                System.Diagnostics.Debug.WriteLine(result.ToString());
-                System.Diagnostics.Debug.WriteLine("endend at : " + DateTime.Now);
-
+            System.Diagnostics.Debug.WriteLine("Thread " + filename + " endend at : " + DateTime.Now + " : " + result.ToString());
             }
             return result.ToString();
         }
-
         public static void DecryptLoop(Object args)
         {
-            Array argArray = (Array)args;
-            int first = 25;
-            int second = 25;
-            int third = 25;
-            int fourth = 25;
-            string attempt = "";
-            string[] array = {
-            "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-            };
+            
+            Array argArray = new object[2];
+            argArray = (Array)args;
             string text = (string)argArray.GetValue(1);
-            string fileName = (string)argArray.GetValue(0);
-            System.Diagnostics.Debug.WriteLine(fileName + text);
-
-
-            while (!attempt.Equals("ZZZZ"))
+            string compteur = (string)argArray.GetValue(0);
+            string key = (string)argArray.GetValue(2);
+            System.Diagnostics.Debug.WriteLine("Thread " + compteur + " started at : " + DateTime.Now);
+            if (key == "")
             {
-                if (first == 26)
+                for (Char c1 = 'A'; c1 <= 'Z'; c1++)
                 {
-                    second++;
-                    first = 0;
+                    for (Char c2 = 'A'; c2 <= 'Z'; c2++)
+                    {
+                        for (Char c3 = 'A'; c3 <= 'Z'; c3++)
+                        {
+                            for (Char c4 = 'A'; c4 <= 'Z'; c4++)
+                            {
+                                Decrypt(text, "" + c1 + c2 + c3 + c4, compteur);
+                                if ("" + c1 + c2 + c3 + c4 == "ZZZZ")
+                                {
+                                    //Console.WriteLine("Thread "+ compteur + " finished at : " + DateTime.Now);
+                                    //System.Diagnostics.Debug.WriteLine("Thread " + compteur + " finished at : " + DateTime.Now);
+                                }
+                            }
+                        }
+                    }
                 }
-
-                if (second == 26)
-                {
-                    third++;
-                    second = 0;
-                }
-
-                if (third == 26)
-                {
-                    fourth++;
-                    third = 0;
-                }
-
-                if (fourth == 26)
-                {
-                    break;
-                }
-                attempt = array[fourth] + array[third] + array[second] + array[first];
-                Decrypt(text, attempt);
-                first++;
+            }
+            else
+            {
+                Decrypt(text, key, compteur);
             }
         }
 
-        public void DecipherEngine(List<string> fileNames, List<string> fileContents)
+        
+        public string Truncate(string text, int maxLength)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+            return text.Length <= maxLength ? text : text.Substring(0, maxLength);
+        }
+        
+        public void DecipherEngine(List<string> fileNames, List<string> fileContents, string key = "")
         {
             System.Diagnostics.Debug.WriteLine("Started at : " + DateTime.Now);
-
             for (int i = 0; i < fileNames.Count(); i++)
             {
+                string[] parameters = new string[3];
                 string name = fileNames.ElementAt(i);
-                string content = fileContents.ElementAt(i);
-                string[] parameters = new string[2];
 
                 parameters[0] = name;
-                parameters[1] = content;
-
+                if (key == "")
+                {
+                    string content = Truncate(fileContents.ElementAt(i), 8000);
+                    parameters[1] = content;
+                }
+                else
+                {
+                    string content = fileContents.ElementAt(i);
+                    parameters[1] = content;
+                }
+                parameters[2] = key;
 
                 Thread t2 = new Thread(DecryptLoop);
                 t2.Start(parameters);
                 Thread.Sleep(10);
             }
-
         }
-
-        
-
-
 
     }
 }
