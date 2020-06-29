@@ -26,7 +26,6 @@ namespace Backend
                 {
                     case "Login":
                         msg.tokenUser = Login(new Credentials { username = msg.username, password = msg.password });
-                        test.getdata("Devron","michael");
                         break;
                     case "Decipher":
                         BruteForceEngine bruteForceEngine = new BruteForceEngine();
@@ -75,7 +74,9 @@ namespace Backend
             //TODO : ADD A CHECK IN DATABASE FOR EXISTING USER
 
             string token;
-            if (credentials.username == "test" && credentials.password == "1234")
+            //System.Diagnostics.Debug.WriteLine(test.getTokenUser(credentials.username, credentials.password));
+            //test.getTokenUser(credentials.username, credentials.password);
+            if (test.getUserExist(credentials.username, credentials.password) == true)
             {
                 //string token = "tokenUser";
                 token = "tokenUser";
