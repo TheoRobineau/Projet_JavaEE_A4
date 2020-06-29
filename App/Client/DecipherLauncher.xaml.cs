@@ -29,7 +29,7 @@ namespace Client
         private string username;
         private string tokenApp;
 
-        int i = 0;
+        //int i = 0;
 
         private bool processIsRunning = false;
 
@@ -69,8 +69,8 @@ namespace Client
                     FileListBox.Items.Add(name.ToString());
 
                     //debug
-                    FileListBox.Items.Add(fileData.ElementAt(i).ToString());
-                    i++;
+                    //FileListBox.Items.Add(fileData.ElementAt(i).ToString());
+                    //i++;
                     //debug
                 }
 
