@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Backend
@@ -12,6 +13,7 @@ namespace Backend
         
         public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-FF4UVH8;Initial Catalog=Users;Integrated Security=True");
 
+        public object MySqlHelper { get; private set; }
 
         public bool getUserExist(string username, string password)
         {
@@ -34,7 +36,6 @@ namespace Backend
 
             return user;
         }
-
         public string getTokenUser(string username, string password)
         {
             string token;
@@ -45,8 +46,6 @@ namespace Backend
             {
                 if (reader.Read())
                 {
-                    //Console.WriteLine(String.Format("{0}", reader["id"]));
-                    //System.Diagnostics.Debug.WriteLine(String.Format("{0}", reader["TokenUser"]));
                     token= String.Format("{0}", reader["TokenUser"]);
                 }
                 else
@@ -58,42 +57,26 @@ namespace Backend
             return token;
         }
 
-
-
-        public void getdata(string username, string password)
+        public void insertdecrypt(string nameFile, string text, string key)
         {
-            string query = "Select Count(*) From UserList where Username ='" + username + "' and UserPassword ='" + password + "'";
-            SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
-            DataTable dt = new DataTable();
-
-            sda.Fill(dt);
-
-            if (dt.Rows[0][0].ToString() == "1")
+            using (SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-FF4UVH8;Initial Catalog=Users;Integrated Security=True"))
             {
-                //System.Diagnostics.Debug.WriteLine("c'est bon");
-            }
-            else
-            {
-                //System.Diagnostics.Debug.WriteLine("c'est pas bon");
-            }
-        }
-        public void update(string username, string password)
-        {
-            string query = "Select Count(*) From UserList where Username ='" + username + "' and UserPassword ='" + password + "'";
-            SqlDataAdapter sdb = new SqlDataAdapter(query, con);
+                String query = "INSERT INTO dbo.DecrypteText (NomFichier,TextDecrypte,TextKey) VALUES (@name,@text,@key)";
 
-            DataTable dt = new DataTable();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@name", nameFile);
+                    command.Parameters.AddWithValue("@text", text);
+                    command.Parameters.AddWithValue("@key", key);
 
-            sdb.Fill(dt);
+                    connection.Open();
+                    int result = command.ExecuteNonQuery();
 
-            if (dt.Rows[0][0].ToString() == "1")
-            {
-                System.Diagnostics.Debug.WriteLine("c'est bon");
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("c'est pas bon");
+                    // Check Error
+                    if (result < 0)
+                        Console.WriteLine("Error inserting data into Database!");
+                }
             }
         }
     }
