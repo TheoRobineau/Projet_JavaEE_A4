@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://webservicereception.service.com/" targetNamespace="http://webservicereception.service.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ReceptionOperation" type="tns:ReceptionOperation" />
+  <xs:element name="ReceptionOperationResponse" type="tns:ReceptionOperationResponse" />
+  <xs:element name="ReceptionTest" type="tns:ReceptionTest" />
+  <xs:element name="ReceptionTestResponse" type="tns:ReceptionTestResponse" />
+  <xs:complexType name="ReceptionTest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="test" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReceptionTestResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="receiveTest" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReceptionOperation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="file" type="xs:string" />
+      <xs:element minOccurs="0" name="key" type="xs:string" />
+      <xs:element minOccurs="0" name="fileName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReceptionOperationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="receive" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
