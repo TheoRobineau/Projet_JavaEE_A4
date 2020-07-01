@@ -15,9 +15,9 @@ namespace Backend
 
             string result;
 
-            result = client.ReceptionOperation("test", "test", "test");
+            //result = client.ReceptionOperation("test", "test", "test");
 
-            System.Diagnostics.Debug.WriteLine(result.ToString());
+            //System.Diagnostics.Debug.WriteLine(result.ToString());
         }
 
 
