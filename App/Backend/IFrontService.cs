@@ -25,7 +25,7 @@ namespace Backend
         string Login(Credentials credentials);
 
         [OperationContract]
-        String getResult(String fileName, String secretInfo, String key);
+        string getResult(string fileName, string secretInfo, string key);
 
     }
 

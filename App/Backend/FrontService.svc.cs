@@ -16,7 +16,7 @@ namespace Backend
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez FrontService.svc ou FrontService.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class FrontService : IFrontService
     {
-        bdd test = new bdd();    
+        bdd test = new bdd();
 
         public Message ProcessMessage(Message msg)
         {
@@ -40,6 +40,8 @@ namespace Backend
 
                         fileNames = ByteDeserializer(dataNames);
                         fileData = ByteDeserializer(dataContent);
+
+                        JSFResultReceived += bruteForceEngine.OnJSFResult;
 
                         bruteForceEngine.DecipherEngine(fileNames, fileData);
 
@@ -124,11 +126,23 @@ namespace Backend
             }
         }
 
-   
-        public String getResult(String fileName, String secretInfo, String key)
-        {
 
+        public string getResult(string fileName, string secretInfo, string key)
+        {
+            ResultJSF result = new ResultJSF{ FileName = fileName, SecretInfo = secretInfo, Key = key };
+            OnResultReceived(result);
             return "Information reçus";
+        }
+
+        public delegate void OnResultJSFEventHandler(object source, ResultJSFEventArgrs args);
+
+        public event OnResultJSFEventHandler JSFResultReceived;
+
+
+        protected virtual void OnResultReceived(ResultJSF result)
+        {
+            if (JSFResultReceived != null)
+                JSFResultReceived(this, new ResultJSFEventArgrs() { resultJSF = result });
         }
     }
 }

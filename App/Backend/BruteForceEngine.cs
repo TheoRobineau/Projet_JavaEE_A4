@@ -93,5 +93,42 @@ namespace Backend
             }
         }
 
+        public Dictionary<string, Thread> threadList = new Dictionary<string, Thread>();
+        public void ThreadManager(Thread thread, string fileName, object[] parameters)
+        {
+            Console.WriteLine("Thread Manager");
+            threadList.Add(fileName, thread);
+            thread.Start(parameters);
+            Thread.Sleep(100);
+        }
+        public void ThreadStopper(ResultJSFEventArgrs result)
+        {
+            //if (result.resultBool == true)
+            //{
+            if (result != null)
+            {
+                if (threadList.TryGetValue(result.resultJSF.FileName.ToString(), out Thread thread))
+                {
+                    if (thread.IsAlive)
+                    {
+                        Console.WriteLine("THREAD FOR FILE : " + result.resultJSF.FileName + " STOPPED ! RESULT FOUND !");
+                        thread.Join();
+                        thread.Interrupt();
+                        //thread.Abort();
+
+                        Console.WriteLine("THREAD FOR FILE : " + result.resultJSF.FileName + " Status is : " + thread.IsAlive);
+                    }
+                }
+            }
+                
+
+            }
+        }
+
+        public void OnJSFResult(object source, ResultJSFEventArgrs e)
+        {
+
+        }
+
     }
 }
