@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  *
  * @author patri
  */
-@MessageDriven(mappedName = "jms/MessageQueue", activationConfig = {
+@MessageDriven(mappedName = "jms/NewMessageQueue", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class MessageBean implements MessageListener {
@@ -48,21 +48,26 @@ public class MessageBean implements MessageListener {
             
             boolean french = wordDAO.checkRate(wordDAO.getOccurrence(file, mots));
             
-            if(french == true ){
-                System.out.println("Le fichier" + fileName + "n'est pas français avec la clé: " + key);
-                
+            FrontService proxy = new FrontService();
+            IFrontService port = proxy.getBasicHttpBindingIFrontService();
+           
+            if(french == true){
                 String secretInfo = wordDAO.secretInfo(file.toLowerCase());
-            
+                System.out.println("Le fichier" + fileName + "est français avec la clé: " + key);
+                
+                String response = port.getResult(fileName, secretInfo, key);
+                
                 if(secretInfo != ""){
                  System.out.println("L'information secrète est:" + secretInfo + "et se trouve dans le fichier" + fileName + "en utilisant la clé" + key);
-                 FrontService proxy = new FrontService();
-                 IFrontService port = proxy.getBasicHttpBindingIFrontService();
-                 String response = port.getResult(fileName, secretInfo, key);
+                 response = port.getResult(fileName, secretInfo, key);
                  System.out.println(response);
                 }
                 else{
                     System.out.println("Il n'existe pas d'information dans le fichier: " + fileName);
                 }
+            }
+            else{
+                System.out.println("Le fichier" + fileName + "n'est pas français avec la clé: " + key);
             }
                    
         } catch (Exception e) {
