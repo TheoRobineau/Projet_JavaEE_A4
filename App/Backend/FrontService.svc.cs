@@ -41,7 +41,7 @@ namespace Backend
                         fileNames = ByteDeserializer(dataNames);
                         fileData = ByteDeserializer(dataContent);
 
-                        JSFResultReceived += bruteForceEngine.OnJSFResult;
+                        JMSResultReceived += bruteForceEngine.OnJMSResult;
 
                         bruteForceEngine.DecipherEngine(fileNames, fileData);
 
@@ -129,20 +129,20 @@ namespace Backend
 
         public string getResult(string fileName, string secretInfo, string key)
         {
-            ResultJSF result = new ResultJSF{ FileName = fileName, SecretInfo = secretInfo, Key = key };
+            ResultJMS result = new ResultJMS{ FileName = fileName, SecretInfo = secretInfo, Key = key };
             OnResultReceived(result);
             return "Information reçus";
         }
 
-        public delegate void OnResultJSFEventHandler(object source, ResultJSFEventArgrs args);
+        public delegate void OnResultJMSEventHandler(object source, ResultJMSEventArgrs args);
 
-        public event OnResultJSFEventHandler JSFResultReceived;
+        public event OnResultJMSEventHandler JMSResultReceived;
 
 
-        protected virtual void OnResultReceived(ResultJSF result)
+        protected virtual void OnResultReceived(ResultJMS result)
         {
-            if (JSFResultReceived != null)
-                JSFResultReceived(this, new ResultJSFEventArgrs() { resultJSF = result });
+            if (JMSResultReceived != null)
+                JMSResultReceived(this, new ResultJMSEventArgrs() { resultJMS = result });
         }
     }
 }

@@ -5,13 +5,13 @@ using System.Web;
 
 namespace Backend
 {
-    public class ResultJSFEventArgrs : EventArgs
+    public class ResultJMSEventArgrs : EventArgs
     {
-        public ResultJSF resultJSF { get; set; }
+        public ResultJMS resultJMS { get; set; }
 
     }
 
-    public class ResultJSF
+    public class ResultJMS
     {
         public string FileName { get; set; }
         public string SecretInfo { get; set; }

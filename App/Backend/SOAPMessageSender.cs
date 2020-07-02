@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using Backend.SOAPReceptionMessage;
 
@@ -18,6 +19,15 @@ namespace Backend
             //result = client.ReceptionOperation("test", "test", "test");
 
             //System.Diagnostics.Debug.WriteLine(result.ToString());
+        }
+
+        public void SendFileToJMS(string decryptedFile, string fileName, string key)
+        {
+            ReceptionEndpointClient client = new ReceptionEndpointClient();
+            string text = Encoding.ASCII.GetBytes(decryptedFile).ToString();
+
+            client.ReceptionOperation(text, key, fileName);
+                
         }
 
 

@@ -133,6 +133,7 @@
       <DependentUpon>FrontService.svc</DependentUpon>
     </Compile>
     <Compile Include="IFrontService.cs" />
+    <Compile Include="ResultJMS.cs" />
     <Compile Include="SOAPMessageSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

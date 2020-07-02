@@ -11,7 +11,7 @@ namespace Backend
     {
         static string Decrypt(string inputString, string key, string filename)
         {
-            bdd test = new bdd();
+            //bdd test = new bdd();
             var result = new StringBuilder();
 
             for (int c = 0; c < inputString.Length; c++)
@@ -43,6 +43,9 @@ namespace Backend
                             for (Char c4 = 'A'; c4 <= 'Z'; c4++)
                             {
                                 Decrypt(text, "" + c1 + c2 + c3 + c4, compteur);
+                                SOAPMessageSender sender = new SOAPMessageSender();
+                               // sender.SendFileToJMS();
+
                                 if ("" + c1 + c2 + c3 + c4 == "ZZZZ")
                                 {
                                     //Console.WriteLine("Thread "+ compteur + " finished at : " + DateTime.Now);
@@ -87,9 +90,10 @@ namespace Backend
                 }
                 parameters[2] = key;
 
-                Thread t2 = new Thread(DecryptLoop);
-                t2.Start(parameters);
-                Thread.Sleep(10);
+                ThreadManager(new Thread(DecryptLoop), name, parameters);
+                //Thread t2 = new Thread(DecryptLoop);
+                //t2.Start(parameters);
+                Thread.Sleep(100);
             }
         }
 
@@ -101,33 +105,33 @@ namespace Backend
             thread.Start(parameters);
             Thread.Sleep(100);
         }
-        public void ThreadStopper(ResultJSFEventArgrs result)
+        public void ThreadStopper(ResultJMSEventArgrs result)
         {
             //if (result.resultBool == true)
             //{
             if (result != null)
             {
-                if (threadList.TryGetValue(result.resultJSF.FileName.ToString(), out Thread thread))
+                if (threadList.TryGetValue(result.resultJMS.FileName.ToString(), out Thread thread))
                 {
                     if (thread.IsAlive)
                     {
-                        Console.WriteLine("THREAD FOR FILE : " + result.resultJSF.FileName + " STOPPED ! RESULT FOUND !");
+                        Console.WriteLine("THREAD FOR FILE : " + result.resultJMS.FileName + " STOPPED ! RESULT FOUND !");
                         thread.Join();
                         thread.Interrupt();
                         //thread.Abort();
 
-                        Console.WriteLine("THREAD FOR FILE : " + result.resultJSF.FileName + " Status is : " + thread.IsAlive);
+                        Console.WriteLine("THREAD FOR FILE : " + result.resultJMS.FileName + " Status is : " + thread.IsAlive);
                     }
                 }
             }
                 
 
             }
-        }
 
-        public void OnJSFResult(object source, ResultJSFEventArgrs e)
+        public void OnJMSResult(object source, ResultJMSEventArgrs e)
         {
-
+            Console.WriteLine("OnJSFResult In BruteForceEngine ");
+            ThreadStopper(e);
         }
 
     }
