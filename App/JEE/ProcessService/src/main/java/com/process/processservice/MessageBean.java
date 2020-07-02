@@ -5,8 +5,8 @@
  */
 package com.process.processservice;
 
-//import com.process.netplateforme.FrontService;
-//import com.process.netplateforme.IFrontService;
+import com.process.netplateforme.FrontService;
+import com.process.netplateforme.IFrontService;
 import java.text.Normalizer;
 import java.util.List;
 import javax.ejb.ActivationConfigProperty;
@@ -41,18 +41,30 @@ public class MessageBean implements MessageListener {
             String file = textMessage.getText();
             String key = textMessage.getStringProperty("key");
             String fileName = textMessage.getStringProperty("fileName");
-//            System.out.println("fichier = " + file + "\n" + "clé = "+ key + "\n" + "nom du fichier = " + fileName);
+            System.out.println("fichier = " + file + "\n" + "clé = "+ key + "\n" + "nom du fichier = " + fileName);
             
             //Récupération des mots du dictionnaire
             List<String> mots =  wordDAO.findMots();
             
-            wordDAO.checkRate(wordDAO.getOccurrence(file, mots));
+            boolean french = wordDAO.checkRate(wordDAO.getOccurrence(file, mots));
             
-//            FrontService proxy = new FrontService();
-//            IFrontService port = proxy.getBasicHttpBindingIFrontService();
-//            
-//            String response = port.getResult("test", "test", "test");
-               
+            if(french == true ){
+                System.out.println("Le fichier" + fileName + "n'est pas français avec la clé: " + key);
+                
+                String secretInfo = wordDAO.secretInfo(file.toLowerCase());
+            
+                if(secretInfo != ""){
+                 System.out.println("L'information secrète est:" + secretInfo + "et se trouve dans le fichier" + fileName + "en utilisant la clé" + key);
+                 FrontService proxy = new FrontService();
+                 IFrontService port = proxy.getBasicHttpBindingIFrontService();
+                 String response = port.getResult(fileName, secretInfo, key);
+                 System.out.println(response);
+                }
+                else{
+                    System.out.println("Il n'existe pas d'information dans le fichier: " + fileName);
+                }
+            }
+                   
         } catch (Exception e) {
             e.printStackTrace();
         }
