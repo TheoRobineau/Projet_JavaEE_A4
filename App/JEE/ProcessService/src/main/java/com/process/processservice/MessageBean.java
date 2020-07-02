@@ -7,6 +7,7 @@ package com.process.processservice;
 
 import com.process.netplateforme.FrontService;
 import com.process.netplateforme.IFrontService;
+import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.util.List;
 import javax.ejb.ActivationConfigProperty;
@@ -17,6 +18,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
+import javax.jms.BytesMessage;
 
 /**
  *
@@ -37,10 +39,21 @@ public class MessageBean implements MessageListener {
     public void onMessage(Message message) {
         try {
             //Récupération du message
-            TextMessage textMessage = (TextMessage) message;
-            String file = textMessage.getText();
-            String key = textMessage.getStringProperty("key");
-            String fileName = textMessage.getStringProperty("fileName");
+            //TextMessage textMessage = (TextMessage) message;
+            //String file = textMessage.getText();
+            //String key = textMessage.getStringProperty("key");
+            //String fileName = textMessage.getStringProperty("fileName");
+            
+            BytesMessage bytesMessage = (BytesMessage)message;
+            byte[] byteData = null;
+            byteData = new byte[(int) bytesMessage.getBodyLength()];
+            bytesMessage.readBytes(byteData);
+            
+            String file = new String(byteData, StandardCharsets.UTF_8);
+            
+            String key = bytesMessage.getStringProperty("key");
+            String fileName = bytesMessage.getStringProperty("fileName");
+            
             System.out.println("fichier = " + file + "\n" + "clé = "+ key + "\n" + "nom du fichier = " + fileName);
             
             //Récupération des mots du dictionnaire
@@ -51,7 +64,10 @@ public class MessageBean implements MessageListener {
             FrontService proxy = new FrontService();
             IFrontService port = proxy.getBasicHttpBindingIFrontService();
            
-            if(french == true){
+
+            if(french == true ){
+                //System.out.println("Le fichier" + fileName + "n'est pas français avec la clé: " + key);
+                
                 String secretInfo = wordDAO.secretInfo(file.toLowerCase());
                 System.out.println("Le fichier" + fileName + "est français avec la clé: " + key);
                 

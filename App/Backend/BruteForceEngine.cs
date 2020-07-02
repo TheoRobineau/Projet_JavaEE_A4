@@ -25,13 +25,13 @@ namespace Backend
         }
         public static void DecryptLoop(Object args)
         {
-            
+            SOAPMessageSender sender = new SOAPMessageSender();
             Array argArray = new object[2];
             argArray = (Array)args;
             string text = (string)argArray.GetValue(1);
-            string compteur = (string)argArray.GetValue(0);
+            string fileName = (string)argArray.GetValue(0);
             string key = (string)argArray.GetValue(2);
-            System.Diagnostics.Debug.WriteLine("Thread " + compteur + " started at : " + DateTime.Now);
+            System.Diagnostics.Debug.WriteLine("Thread " + fileName + " started at : " + DateTime.Now);
             if (key == "")
             {
                 for (Char c1 = 'A'; c1 <= 'Z'; c1++)
@@ -42,9 +42,10 @@ namespace Backend
                         {
                             for (Char c4 = 'A'; c4 <= 'Z'; c4++)
                             {
-                                Decrypt(text, "" + c1 + c2 + c3 + c4, compteur);
-                                SOAPMessageSender sender = new SOAPMessageSender();
-                               // sender.SendFileToJMS();
+                                string decryptKey = "" + c1 + c2 + c3 + c4;
+                                string decryptedFile = Decrypt(text, decryptKey, fileName);
+                                
+                                sender.SendFileToJMS(decryptedFile, fileName, decryptKey);
 
                                 if ("" + c1 + c2 + c3 + c4 == "ZZZZ")
                                 {
@@ -58,7 +59,8 @@ namespace Backend
             }
             else
             {
-                Decrypt(text, key, compteur);
+                string decryptedFile = Decrypt(text, key, fileName);
+                sender.SendFileToJMS(decryptedFile, fileName, key);
             }
         }
 

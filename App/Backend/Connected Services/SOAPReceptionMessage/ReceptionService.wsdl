@@ -5,31 +5,31 @@
       <xsd:import schemaLocation="http://localhost:10080/ReceptionService/ReceptionServiceBean?xsd=1" namespace="http://webservicereception.service.com/" />
     </xsd:schema>
   </types>
-  <message name="ReceptionTest">
-    <part name="parameters" element="tns:ReceptionTest" />
-  </message>
-  <message name="ReceptionTestResponse">
-    <part name="parameters" element="tns:ReceptionTestResponse" />
-  </message>
   <message name="ReceptionOperation">
     <part name="parameters" element="tns:ReceptionOperation" />
   </message>
   <message name="ReceptionOperationResponse">
     <part name="parameters" element="tns:ReceptionOperationResponse" />
   </message>
+  <message name="ReceptionTest">
+    <part name="parameters" element="tns:ReceptionTest" />
+  </message>
+  <message name="ReceptionTestResponse">
+    <part name="parameters" element="tns:ReceptionTestResponse" />
+  </message>
   <portType name="ReceptionEndpoint">
-    <operation name="ReceptionTest">
-      <input wsam:Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestRequest" message="tns:ReceptionTest" />
-      <output wsam:Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestResponse" message="tns:ReceptionTestResponse" />
-    </operation>
     <operation name="ReceptionOperation">
       <input wsam:Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionOperationRequest" message="tns:ReceptionOperation" />
       <output wsam:Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionOperationResponse" message="tns:ReceptionOperationResponse" />
     </operation>
+    <operation name="ReceptionTest">
+      <input wsam:Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestRequest" message="tns:ReceptionTest" />
+      <output wsam:Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestResponse" message="tns:ReceptionTestResponse" />
+    </operation>
   </portType>
   <binding name="ReceptionPortBinding" type="tns:ReceptionEndpoint">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="ReceptionTest">
+    <operation name="ReceptionOperation">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -38,7 +38,7 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="ReceptionOperation">
+    <operation name="ReceptionTest">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

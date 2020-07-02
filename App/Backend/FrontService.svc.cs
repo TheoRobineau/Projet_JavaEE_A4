@@ -27,7 +27,7 @@ namespace Backend
                     case "Login":
                         msg.tokenUser = Login(new Credentials { username = msg.username, password = msg.password });
                         SOAPMessageSender sender = new SOAPMessageSender();
-                        sender.test();
+                        //sender.test();
                         break;
                     case "Decipher":
                         BruteForceEngine bruteForceEngine = new BruteForceEngine();

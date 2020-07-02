@@ -18,7 +18,10 @@ import javax.jws.WebService;
 public interface ReceptionServiceBeanEndPointInterface {
     @WebMethod(operationName = "ReceptionOperation")
     @WebResult(name = "receive")
-    String receptMessage(@WebParam(name="file") String file, @WebParam(name="key")  String key, @WebParam(name="fileName") String fileName);
+    String receptMessage(@WebParam(name="file") byte[] file, @WebParam(name="key")  String key, @WebParam(name="fileName") String fileName);
+    //String receptMessage(@WebParam(name="file") String file, @WebParam(name="key")  String key, @WebParam(name="fileName") String fileName);
+    
+    
     @WebMethod(operationName = "ReceptionTest")
     @WebResult(name = "receiveTest")
     String testMessage(@WebParam(name="test") String test);
