@@ -15,13 +15,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author patri
+ * @author Théo
  */
 @Entity
 @Table(name = "MOT")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Mot.findAll", query = "SELECT m FROM Mot m"),
     @NamedQuery(name = "Mot.findById", query = "SELECT m FROM Mot m WHERE m.id = :id"),
@@ -36,7 +38,7 @@ public class Mot implements Serializable {
     private Long id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 50)
     @Column(name = "MOT")
     private String mot;
 

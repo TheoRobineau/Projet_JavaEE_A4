@@ -34,13 +34,16 @@ public class ReceptionServiceBean implements ReceptionServiceBeanEndPointInterfa
     private Queue queue;
     
     @Override
-    public String receptMessage(String file, String key, String fileName){
+    //public String receptMessage(String file, String key, String fileName){
+    public String receptMessage(byte[] file, String key, String fileName){
         try{
             Connection connection = connectionFactory.createConnection();
             Session session = connection.createSession();
             MessageProducer messageProducer = session.createProducer(queue);
-            TextMessage message = session.createTextMessage();
-            message.setText(file);
+            //TextMessage message = session.createTextMessage();
+            
+            BytesMessage message = session.createBytesMessage();
+            message.writeBytes(file);
             message.setStringProperty("key", key);
             message.setStringProperty("fileName", fileName);
            

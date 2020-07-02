@@ -16,7 +16,7 @@
   </xs:complexType>
   <xs:complexType name="ReceptionOperation">
     <xs:sequence>
-      <xs:element minOccurs="0" name="file" type="xs:string" />
+      <xs:element minOccurs="0" name="file" nillable="true" type="xs:base64Binary" />
       <xs:element minOccurs="0" name="key" type="xs:string" />
       <xs:element minOccurs="0" name="fileName" type="xs:string" />
     </xs:sequence>
