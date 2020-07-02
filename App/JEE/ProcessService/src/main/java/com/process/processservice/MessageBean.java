@@ -24,17 +24,17 @@ import javax.jms.BytesMessage;
  *
  * @author patri
  */
-@MessageDriven(mappedName = "jms/MessageQueue", activationConfig = {
+@MessageDriven(mappedName = "jms/NewMessageQueue", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class MessageBean implements MessageListener {
-    
+
     @EJB
     WordDAO wordDAO;
 
     public MessageBean() {
     }
-    
+
     @Override
     public void onMessage(Message message) {
         try {
@@ -43,41 +43,49 @@ public class MessageBean implements MessageListener {
             //String file = textMessage.getText();
             //String key = textMessage.getStringProperty("key");
             //String fileName = textMessage.getStringProperty("fileName");
-            
+
             BytesMessage bytesMessage = (BytesMessage)message;
             byte[] byteData = null;
             byteData = new byte[(int) bytesMessage.getBodyLength()];
             bytesMessage.readBytes(byteData);
-            
+
             String file = new String(byteData, StandardCharsets.UTF_8);
-            
+
             String key = bytesMessage.getStringProperty("key");
             String fileName = bytesMessage.getStringProperty("fileName");
-            
+
             System.out.println("fichier = " + file + "\n" + "clé = "+ key + "\n" + "nom du fichier = " + fileName);
-            
+
             //Récupération des mots du dictionnaire
             List<String> mots =  wordDAO.findMots();
-            
+
             boolean french = wordDAO.checkRate(wordDAO.getOccurrence(file, mots));
-            
+
+            FrontService proxy = new FrontService();
+            IFrontService port = proxy.getBasicHttpBindingIFrontService();
+
+
             if(french == true ){
                 //System.out.println("Le fichier" + fileName + "n'est pas français avec la clé: " + key);
-                
+
                 String secretInfo = wordDAO.secretInfo(file.toLowerCase());
-            
+                System.out.println("Le fichier" + fileName + "est français avec la clé: " + key);
+
+                String response = port.getResult(fileName, secretInfo, key);
+
                 if(secretInfo != ""){
                  System.out.println("L'information secrète est:" + secretInfo + "et se trouve dans le fichier" + fileName + "en utilisant la clé" + key);
-                 FrontService proxy = new FrontService();
-                 IFrontService port = proxy.getBasicHttpBindingIFrontService();
-                 port.getResult(fileName, secretInfo, key);
-                 //System.out.println(response);
+                 response = port.getResult(fileName, secretInfo, key);
+                 System.out.println(response);
                 }
                 else{
                     System.out.println("Il n'existe pas d'information dans le fichier: " + fileName);
                 }
             }
-                   
+            else{
+                System.out.println("Le fichier" + fileName + "n'est pas français avec la clé: " + key);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
