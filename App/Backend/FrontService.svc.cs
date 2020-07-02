@@ -17,6 +17,33 @@ namespace Backend
     public class FrontService : IFrontService
     {
         bdd test = new bdd();
+        private BruteForceEngine bruteForceEngine;
+
+
+        public delegate void OnResultJMSEventHandler(object source, ResultJMSEventArgrs args);
+
+        public event OnResultJMSEventHandler JMSResultReceived;
+
+        public FrontService()
+        {
+            bruteForceEngine = new BruteForceEngine();
+            JMSResultReceived += bruteForceEngine.OnJMSResult;
+        }
+
+        public virtual void OnResultReceived(ResultJMS result)
+        {
+            if (JMSResultReceived != null)
+                JMSResultReceived(this, new ResultJMSEventArgrs() { resultJMS = result });
+        }
+
+
+        public void getResult(string fileName, string secretInfo, string key)
+        {
+            ResultJMS result = new ResultJMS { FileName = fileName, SecretInfo = secretInfo, Key = key };
+            System.Diagnostics.Debug.WriteLine("GET RESULT ! JMS CALLED ME " + fileName + secretInfo + key);
+            OnResultReceived(result);
+            //return "Information reçus";
+        }
 
         public Message ProcessMessage(Message msg)
         {
@@ -30,7 +57,7 @@ namespace Backend
                         //sender.test();
                         break;
                     case "Decipher":
-                        BruteForceEngine bruteForceEngine = new BruteForceEngine();
+                        
                         List<string> fileNames = new List<string>();
                         List<string> fileData = new List<string>();
 
@@ -41,10 +68,8 @@ namespace Backend
                         fileNames = ByteDeserializer(dataNames);
                         fileData = ByteDeserializer(dataContent);
 
-                        JMSResultReceived += bruteForceEngine.OnJMSResult;
-
                         bruteForceEngine.DecipherEngine(fileNames, fileData);
-
+                        
                         break;
                 }
 
@@ -127,22 +152,8 @@ namespace Backend
         }
 
 
-        public string getResult(string fileName, string secretInfo, string key)
-        {
-            ResultJMS result = new ResultJMS{ FileName = fileName, SecretInfo = secretInfo, Key = key };
-            OnResultReceived(result);
-            return "Information reçus";
-        }
+       
 
-        public delegate void OnResultJMSEventHandler(object source, ResultJMSEventArgrs args);
-
-        public event OnResultJMSEventHandler JMSResultReceived;
-
-
-        protected virtual void OnResultReceived(ResultJMS result)
-        {
-            if (JMSResultReceived != null)
-                JMSResultReceived(this, new ResultJMSEventArgrs() { resultJMS = result });
-        }
+        
     }
 }

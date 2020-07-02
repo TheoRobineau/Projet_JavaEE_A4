@@ -33,8 +33,10 @@ namespace Backend
             // string text = ;
             //string text = decryptedFile.Replace("")
 
-            client.ReceptionOperation(bytes, key, fileName);
-                
+            string responseJMS = client.ReceptionOperation(bytes, key, fileName);
+            System.Diagnostics.Debug.WriteLine(responseJMS);
+
+
         }
 
 

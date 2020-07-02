@@ -70,8 +70,8 @@ public class MessageBean implements MessageListener {
                  System.out.println("L'information secrète est:" + secretInfo + "et se trouve dans le fichier" + fileName + "en utilisant la clé" + key);
                  FrontService proxy = new FrontService();
                  IFrontService port = proxy.getBasicHttpBindingIFrontService();
-                 String response = port.getResult(fileName, secretInfo, key);
-                 System.out.println(response);
+                 port.getResult(fileName, secretInfo, key);
+                 //System.out.println(response);
                 }
                 else{
                     System.out.println("Il n'existe pas d'information dans le fichier: " + fileName);

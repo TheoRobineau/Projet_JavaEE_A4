@@ -9,6 +9,12 @@ namespace Backend
 {
     public class BruteForceEngine
     {
+
+        public Dictionary<string, Thread> threadList;
+        public BruteForceEngine()
+        {
+            threadList = new Dictionary<string, Thread>();
+        }
         static string Decrypt(string inputString, string key, string filename)
         {
             //bdd test = new bdd();
@@ -19,7 +25,7 @@ namespace Backend
 
             if (key == "ZZZZ")
             {
-            System.Diagnostics.Debug.WriteLine("Thread " + filename + " endend at : " + DateTime.Now + " : " + result.ToString());
+                System.Diagnostics.Debug.WriteLine("Thread " + filename + " endend at : " + DateTime.Now + " : " + result.ToString());
             }
             return result.ToString();
         }
@@ -44,7 +50,6 @@ namespace Backend
                             {
                                 string decryptKey = "" + c1 + c2 + c3 + c4;
                                 string decryptedFile = Decrypt(text, decryptKey, fileName);
-                                
                                 sender.SendFileToJMS(decryptedFile, fileName, decryptKey);
 
                                 if ("" + c1 + c2 + c3 + c4 == "ZZZZ")
@@ -64,13 +69,12 @@ namespace Backend
             }
         }
 
-        
         public string Truncate(string text, int maxLength)
         {
             if (string.IsNullOrEmpty(text)) return text;
             return text.Length <= maxLength ? text : text.Substring(0, maxLength);
         }
-        
+
         public void DecipherEngine(List<string> fileNames, List<string> fileContents, string key = "")
         {
             System.Diagnostics.Debug.WriteLine("Started at : " + DateTime.Now);
@@ -92,15 +96,14 @@ namespace Backend
                 }
                 parameters[2] = key;
 
-                ThreadManager(new Thread(DecryptLoop), name, parameters);
+                ThreadManager(new Thread(DecryptLoop), name, parameters, this.threadList);
                 //Thread t2 = new Thread(DecryptLoop);
                 //t2.Start(parameters);
                 Thread.Sleep(100);
             }
         }
 
-        public Dictionary<string, Thread> threadList = new Dictionary<string, Thread>();
-        public void ThreadManager(Thread thread, string fileName, object[] parameters)
+        public void ThreadManager(Thread thread, string fileName, object[] parameters, Dictionary<string, Thread> threadList)
         {
             Console.WriteLine("Thread Manager");
             threadList.Add(fileName, thread);
@@ -113,26 +116,24 @@ namespace Backend
             //{
             if (result != null)
             {
-                if (threadList.TryGetValue(result.resultJMS.FileName.ToString(), out Thread thread))
+                if (this.threadList.TryGetValue(result.resultJMS.FileName.ToString(), out Thread thread))
                 {
                     if (thread.IsAlive)
                     {
-                        Console.WriteLine("THREAD FOR FILE : " + result.resultJMS.FileName + " STOPPED ! RESULT FOUND !");
+                        System.Diagnostics.Debug.WriteLine("THREAD FOR FILE : " + result.resultJMS.FileName + " STOPPED ! RESULT FOUND !");
                         thread.Join();
                         thread.Interrupt();
                         //thread.Abort();
 
-                        Console.WriteLine("THREAD FOR FILE : " + result.resultJMS.FileName + " Status is : " + thread.IsAlive);
+                        System.Diagnostics.Debug.WriteLine("THREAD FOR FILE : " + result.resultJMS.FileName + " Status is : " + thread.IsAlive);
                     }
                 }
             }
-                
-
-            }
+        }
 
         public void OnJMSResult(object source, ResultJMSEventArgrs e)
         {
-            Console.WriteLine("OnJSFResult In BruteForceEngine ");
+            System.Diagnostics.Debug.WriteLine("OnJSFResult In BruteForceEngine ");
             ThreadStopper(e);
         }
 
