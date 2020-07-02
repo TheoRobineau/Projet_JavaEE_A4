@@ -5,6 +5,8 @@
  */
 package com.process.processservice;
 
+//import com.process.netplateforme.FrontService;
+//import com.process.netplateforme.IFrontService;
 import java.text.Normalizer;
 import java.util.List;
 import javax.ejb.ActivationConfigProperty;
@@ -46,6 +48,11 @@ public class MessageBean implements MessageListener {
             
             wordDAO.checkRate(wordDAO.getOccurrence(file, mots));
             
+//            FrontService proxy = new FrontService();
+//            IFrontService port = proxy.getBasicHttpBindingIFrontService();
+//            
+//            String response = port.getResult("test", "test", "test");
+               
         } catch (Exception e) {
             e.printStackTrace();
         }

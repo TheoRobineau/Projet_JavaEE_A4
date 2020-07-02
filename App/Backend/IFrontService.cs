@@ -23,6 +23,10 @@ namespace Backend
 
         [OperationContract]
         string Login(Credentials credentials);
+
+        [OperationContract]
+        String getResult(String fileName, String secretInfo, String key);
+
     }
 
 
@@ -37,7 +41,7 @@ namespace Backend
         public string password { get; set; }
     }
 
-    [DataContract] 
+    [DataContract]
     [KnownType(typeof(string[]))]
     public class Message
     {
@@ -65,5 +69,4 @@ namespace Backend
         public string info;
 
     }
-    
 }

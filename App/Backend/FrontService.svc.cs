@@ -124,6 +124,11 @@ namespace Backend
             }
         }
 
+   
+        public String getResult(String fileName, String secretInfo, String key)
+        {
 
+            return "Information reçus";
+        }
     }
 }
