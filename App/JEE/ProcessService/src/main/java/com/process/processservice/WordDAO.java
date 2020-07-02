@@ -96,4 +96,25 @@ public class WordDAO {
         
         return result;
     }
+    
+    public String secretInfo(String file){
+        String infoAccent  = "information secrète";
+        String infoWithoutAccent  = "information secrete";
+        String secretInfo = "";
+        
+        int posAccent = file.indexOf(infoAccent);
+        int posWithoutAccent = file.indexOf(infoWithoutAccent);
+        
+        if(posAccent > -1){
+            secretInfo = file.substring(posAccent);
+        }
+        else if(posWithoutAccent > -1){
+            secretInfo = file.substring(posWithoutAccent);
+        }
+        else{
+            return "";
+        }
+       
+        return secretInfo;
+    }
 }
