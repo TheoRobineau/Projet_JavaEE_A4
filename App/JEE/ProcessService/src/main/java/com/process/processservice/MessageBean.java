@@ -70,13 +70,11 @@ public class MessageBean implements MessageListener {
 
                 String secretInfo = wordDAO.secretInfo(file.toLowerCase());
                 System.out.println("Le fichier" + fileName + "est français avec la clé: " + key);
-
-                String response = port.getResult(fileName, secretInfo, key);
+                port.getResult(fileName, secretInfo, key);
 
                 if(secretInfo != ""){
                  System.out.println("L'information secrète est:" + secretInfo + "et se trouve dans le fichier" + fileName + "en utilisant la clé" + key);
-                 response = port.getResult(fileName, secretInfo, key);
-                 System.out.println(response);
+                 port.getResult(fileName, secretInfo, key);
                 }
                 else{
                     System.out.println("Il n'existe pas d'information dans le fichier: " + fileName);
