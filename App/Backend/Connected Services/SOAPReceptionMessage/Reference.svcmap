@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:10080/ReceptionService/ReceptionServiceBean?WSDL" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:12080/ReceptionService/ReceptionServiceBean?WSDL" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ReceptionService.wsdl" MetadataType="Wsdl" ID="fb4c3a03-71ac-4a2b-ba69-c2fcc8446170" SourceId="1" SourceUrl="http://localhost:10080/ReceptionService/ReceptionServiceBean?WSDL" />
-    <MetadataFile FileName="ReceptionServiceBean.xsd" MetadataType="Schema" ID="057a1d79-904e-4c60-80f9-862805459867" SourceId="1" SourceUrl="http://localhost:10080/ReceptionService/ReceptionServiceBean?xsd=1" />
+    <MetadataFile FileName="ReceptionServiceBean1.xsd" MetadataType="Schema" ID="685e391e-5cbc-43b7-a21c-1049d0a36059" SourceId="1" SourceUrl="http://localhost:12080/ReceptionService/ReceptionServiceBean?xsd=1" />
+    <MetadataFile FileName="ReceptionService1.wsdl" MetadataType="Wsdl" ID="644b8596-62b1-4619-a0ab-78db4adb2cf9" SourceId="1" SourceUrl="http://localhost:12080/ReceptionService/ReceptionServiceBean?WSDL" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

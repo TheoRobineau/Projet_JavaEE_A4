@@ -37,6 +37,7 @@ public class ReceptionServiceBean implements ReceptionServiceBeanEndPointInterfa
     //public String receptMessage(String file, String key, String fileName){
     public String receptMessage(byte[] file, String key, String fileName){
         try{
+             System.out.println("test");
             Connection connection = connectionFactory.createConnection();
             Session session = connection.createSession();
             MessageProducer messageProducer = session.createProducer(queue);

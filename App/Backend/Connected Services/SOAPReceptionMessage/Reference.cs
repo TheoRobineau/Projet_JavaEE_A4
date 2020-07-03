@@ -15,6 +15,13 @@ namespace Backend.SOAPReceptionMessage {
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://webservicereception.service.com/", ConfigurationName="SOAPReceptionMessage.ReceptionEndpoint")]
     public interface ReceptionEndpoint {
         
+        // CODEGEN : La génération du contrat de message depuis le nom d'élément test de l'espace de noms  n'est pas marqué nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestRequest", ReplyAction="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestResponse")]
+        Backend.SOAPReceptionMessage.ReceptionTestResponse ReceptionTest(Backend.SOAPReceptionMessage.ReceptionTestRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestRequest", ReplyAction="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestResponse")]
+        System.Threading.Tasks.Task<Backend.SOAPReceptionMessage.ReceptionTestResponse> ReceptionTestAsync(Backend.SOAPReceptionMessage.ReceptionTestRequest request);
+        
         // CODEGEN : La génération du contrat de message depuis le nom d'élément key de l'espace de noms  n'est pas marqué nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionOperationReques" +
             "t", ReplyAction="http://webservicereception.service.com/ReceptionEndpoint/ReceptionOperationRespon" +
@@ -25,13 +32,74 @@ namespace Backend.SOAPReceptionMessage {
             "t", ReplyAction="http://webservicereception.service.com/ReceptionEndpoint/ReceptionOperationRespon" +
             "se")]
         System.Threading.Tasks.Task<Backend.SOAPReceptionMessage.ReceptionOperationResponse> ReceptionOperationAsync(Backend.SOAPReceptionMessage.ReceptionOperationRequest request);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ReceptionTestRequest {
         
-        // CODEGEN : La génération du contrat de message depuis le nom d'élément test de l'espace de noms  n'est pas marqué nillable
-        [System.ServiceModel.OperationContractAttribute(Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestRequest", ReplyAction="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestResponse")]
-        Backend.SOAPReceptionMessage.ReceptionTestResponse ReceptionTest(Backend.SOAPReceptionMessage.ReceptionTestRequest request);
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ReceptionTest", Namespace="http://webservicereception.service.com/", Order=0)]
+        public Backend.SOAPReceptionMessage.ReceptionTestRequestBody Body;
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestRequest", ReplyAction="http://webservicereception.service.com/ReceptionEndpoint/ReceptionTestResponse")]
-        System.Threading.Tasks.Task<Backend.SOAPReceptionMessage.ReceptionTestResponse> ReceptionTestAsync(Backend.SOAPReceptionMessage.ReceptionTestRequest request);
+        public ReceptionTestRequest() {
+        }
+        
+        public ReceptionTestRequest(Backend.SOAPReceptionMessage.ReceptionTestRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="")]
+    public partial class ReceptionTestRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string test;
+        
+        public ReceptionTestRequestBody() {
+        }
+        
+        public ReceptionTestRequestBody(string test) {
+            this.test = test;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ReceptionTestResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ReceptionTestResponse", Namespace="http://webservicereception.service.com/", Order=0)]
+        public Backend.SOAPReceptionMessage.ReceptionTestResponseBody Body;
+        
+        public ReceptionTestResponse() {
+        }
+        
+        public ReceptionTestResponse(Backend.SOAPReceptionMessage.ReceptionTestResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="")]
+    public partial class ReceptionTestResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string receiveTest;
+        
+        public ReceptionTestResponseBody() {
+        }
+        
+        public ReceptionTestResponseBody(string receiveTest) {
+            this.receiveTest = receiveTest;
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -110,74 +178,6 @@ namespace Backend.SOAPReceptionMessage {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ReceptionTestRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="ReceptionTest", Namespace="http://webservicereception.service.com/", Order=0)]
-        public Backend.SOAPReceptionMessage.ReceptionTestRequestBody Body;
-        
-        public ReceptionTestRequest() {
-        }
-        
-        public ReceptionTestRequest(Backend.SOAPReceptionMessage.ReceptionTestRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="")]
-    public partial class ReceptionTestRequestBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string test;
-        
-        public ReceptionTestRequestBody() {
-        }
-        
-        public ReceptionTestRequestBody(string test) {
-            this.test = test;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ReceptionTestResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="ReceptionTestResponse", Namespace="http://webservicereception.service.com/", Order=0)]
-        public Backend.SOAPReceptionMessage.ReceptionTestResponseBody Body;
-        
-        public ReceptionTestResponse() {
-        }
-        
-        public ReceptionTestResponse(Backend.SOAPReceptionMessage.ReceptionTestResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="")]
-    public partial class ReceptionTestResponseBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string receiveTest;
-        
-        public ReceptionTestResponseBody() {
-        }
-        
-        public ReceptionTestResponseBody(string receiveTest) {
-            this.receiveTest = receiveTest;
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ReceptionEndpointChannel : Backend.SOAPReceptionMessage.ReceptionEndpoint, System.ServiceModel.IClientChannel {
     }
@@ -203,6 +203,31 @@ namespace Backend.SOAPReceptionMessage {
         
         public ReceptionEndpointClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Backend.SOAPReceptionMessage.ReceptionTestResponse Backend.SOAPReceptionMessage.ReceptionEndpoint.ReceptionTest(Backend.SOAPReceptionMessage.ReceptionTestRequest request) {
+            return base.Channel.ReceptionTest(request);
+        }
+        
+        public string ReceptionTest(string test) {
+            Backend.SOAPReceptionMessage.ReceptionTestRequest inValue = new Backend.SOAPReceptionMessage.ReceptionTestRequest();
+            inValue.Body = new Backend.SOAPReceptionMessage.ReceptionTestRequestBody();
+            inValue.Body.test = test;
+            Backend.SOAPReceptionMessage.ReceptionTestResponse retVal = ((Backend.SOAPReceptionMessage.ReceptionEndpoint)(this)).ReceptionTest(inValue);
+            return retVal.Body.receiveTest;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Backend.SOAPReceptionMessage.ReceptionTestResponse> Backend.SOAPReceptionMessage.ReceptionEndpoint.ReceptionTestAsync(Backend.SOAPReceptionMessage.ReceptionTestRequest request) {
+            return base.Channel.ReceptionTestAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Backend.SOAPReceptionMessage.ReceptionTestResponse> ReceptionTestAsync(string test) {
+            Backend.SOAPReceptionMessage.ReceptionTestRequest inValue = new Backend.SOAPReceptionMessage.ReceptionTestRequest();
+            inValue.Body = new Backend.SOAPReceptionMessage.ReceptionTestRequestBody();
+            inValue.Body.test = test;
+            return ((Backend.SOAPReceptionMessage.ReceptionEndpoint)(this)).ReceptionTestAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -232,31 +257,6 @@ namespace Backend.SOAPReceptionMessage {
             inValue.Body.key = key;
             inValue.Body.fileName = fileName;
             return ((Backend.SOAPReceptionMessage.ReceptionEndpoint)(this)).ReceptionOperationAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Backend.SOAPReceptionMessage.ReceptionTestResponse Backend.SOAPReceptionMessage.ReceptionEndpoint.ReceptionTest(Backend.SOAPReceptionMessage.ReceptionTestRequest request) {
-            return base.Channel.ReceptionTest(request);
-        }
-        
-        public string ReceptionTest(string test) {
-            Backend.SOAPReceptionMessage.ReceptionTestRequest inValue = new Backend.SOAPReceptionMessage.ReceptionTestRequest();
-            inValue.Body = new Backend.SOAPReceptionMessage.ReceptionTestRequestBody();
-            inValue.Body.test = test;
-            Backend.SOAPReceptionMessage.ReceptionTestResponse retVal = ((Backend.SOAPReceptionMessage.ReceptionEndpoint)(this)).ReceptionTest(inValue);
-            return retVal.Body.receiveTest;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Backend.SOAPReceptionMessage.ReceptionTestResponse> Backend.SOAPReceptionMessage.ReceptionEndpoint.ReceptionTestAsync(Backend.SOAPReceptionMessage.ReceptionTestRequest request) {
-            return base.Channel.ReceptionTestAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<Backend.SOAPReceptionMessage.ReceptionTestResponse> ReceptionTestAsync(string test) {
-            Backend.SOAPReceptionMessage.ReceptionTestRequest inValue = new Backend.SOAPReceptionMessage.ReceptionTestRequest();
-            inValue.Body = new Backend.SOAPReceptionMessage.ReceptionTestRequestBody();
-            inValue.Body.test = test;
-            return ((Backend.SOAPReceptionMessage.ReceptionEndpoint)(this)).ReceptionTestAsync(inValue);
         }
     }
 }

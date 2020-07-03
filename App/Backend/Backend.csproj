@@ -114,6 +114,10 @@
     </Content>
     <None Include="Connected Services\SOAPReceptionMessage\configuration91.svcinfo" />
     <None Include="Connected Services\SOAPReceptionMessage\configuration.svcinfo" />
+    <None Include="Connected Services\SOAPReceptionMessage\ReceptionService1.wsdl" />
+    <None Include="Connected Services\SOAPReceptionMessage\ReceptionServiceBean1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\SOAPReceptionMessage\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -133,6 +137,7 @@
       <DependentUpon>FrontService.svc</DependentUpon>
     </Compile>
     <Compile Include="IFrontService.cs" />
+    <Compile Include="Mail.cs" />
     <Compile Include="ResultJMS.cs" />
     <Compile Include="SOAPMessageSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,10 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationInsights.config" />
-    <None Include="Connected Services\SOAPReceptionMessage\ReceptionService.wsdl" />
-    <None Include="Connected Services\SOAPReceptionMessage\ReceptionServiceBean.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

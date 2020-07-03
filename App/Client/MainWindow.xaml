@@ -11,9 +11,9 @@
         <GroupBox Header="Connexion" FontSize="16" Margin="50,80,242,31">
             <Canvas HorizontalAlignment="Left" Height="158" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
                 <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Identifiant" Canvas.Top="10"/>
-                <TextBox Name="UsernameBox" Height="25" Canvas.Left="10" TextWrapping="Wrap" Width="160" Canvas.Top="36" Text="test"/>
+                <TextBox Name="UsernameBox" Height="25" Canvas.Left="10" TextWrapping="Wrap" Width="160" Canvas.Top="36" Text=""/>
                 <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Mot de passe" Canvas.Top="78"/>
-                <PasswordBox Name="PasswordBox" Canvas.Left="10" Canvas.Top="104" Width="160" Height="25" Password="1234"/>
+                <PasswordBox Name="PasswordBox" Canvas.Left="10" Canvas.Top="104" Width="160" Height="25" Password=""/>
                 <Button Content="Connexion" Canvas.Left="235" Canvas.Top="123" Width="90" Click="Login_Button_Click"/>
             </Canvas>
         </GroupBox>
